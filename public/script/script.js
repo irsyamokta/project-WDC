@@ -15,41 +15,96 @@ const loveLg = document.getElementsByClassName('love-lg');
 const textLg = document.getElementsByClassName('btn-text');
 const checkLg = document.getElementsByClassName('check-lg');
 
+// function handleFavClick(btnFav, love, check, index) {
+//     btnFav.addEventListener('click', function () {
+//         if (check.checked) {
+//             localStorage.setItem(`isFavorited_${index}`, "true");
+//             love.classList.add('fa-solid', 'text-red-500');
+//             love.classList.remove('fa-regular', 'text-slate-600');
+//         } else {
+//             localStorage.removeItem(`isFavorited_${index}`);
+//             love.classList.add('fa-regular', 'text-slate-600');
+//             love.classList.remove('fa-solid', 'text-red-500');
+//         }
+//     });
+// }
 
-Array.from(btnFav).forEach(button => {
-    button.addEventListener('click', function () {
-        Array.from(check).forEach((element, index) => {
-            if(element.checked) {
-                love[index].classList.add('fa-solid', 'text-red-500');
-                love[index].classList.remove('fa-regular', 'text-slate-600');
-            } else {
-                love[index].classList.add('fa-regular', 'text-slate-600');
-                love[index].classList.remove('fa-solid', 'text-red-500');
-            }
-        });
+// Array.from(btnFav).forEach((button, index) => {
+//     handleFavClick(button, love[index], check[index], index);
+// });
+
+// Array.from(btnFavLg).forEach((button, index) => {
+//     handleFavClick(button, loveLg[index], checkLg[index], index);
+// });
+
+function handleFavClick(btnFav, love, check, cardId) {
+    btnFav.addEventListener('click', function () {
+        // Simpan atau hapus status favorit di local storage
+        if (check.checked) {
+            localStorage.setItem(`isFavorited_${cardId}`, "true");
+            love.classList.add('fa-solid', 'text-red-500');
+            love.classList.remove('fa-regular', 'text-slate-600');
+        } else {
+            localStorage.removeItem(`isFavorited_${cardId}`);
+            love.classList.add('fa-regular', 'text-slate-600');
+            love.classList.remove('fa-solid', 'text-red-500');
+        }
     });
+}
+function handleFavClick(btnFavLg, loveLg, checkLg, cardId) {
+    btnFavLg.addEventListener('click', function () {
+        // Simpan atau hapus status favorit di local storage
+        if (checkLg.checked) {
+            localStorage.setItem(`isFavorited_${cardId}`, "true");
+            loveLg.classList.add('fa-solid', 'text-red-500');
+            loveLg.classList.remove('fa-regular', 'text-slate-600');
+        } else {
+            localStorage.removeItem(`isFavorited_${cardId}`);
+            loveLg.classList.add('fa-regular', 'text-slate-600');
+            loveLg.classList.remove('fa-solid', 'text-red-500');
+        }
+    });
+}
+
+Array.from(btnFav).forEach((button, index) => {
+    const cardId = button.closest('.card').dataset.id; 
+    handleFavClick(button, love[index], check[index], cardId);
 });
 
-Array.from(btnFavLg).forEach(button => {
-    button.addEventListener('click', function () {
-        Array.from(checkLg).forEach((element, index) => {
-            if(element.checked) {
-                btnFavLg[index].classList.add('bg-red-500');
-                textLg[index].classList.add('text-white');
-                textLg[index].classList.remove('text-slate-600');
-                loveLg[index].classList.add('fa-solid', 'text-white');
-                loveLg[index].classList.remove('fa-regular', 'text-slate-600');
-            } else {
-                btnFavLg[index].classList.remove('bg-red-500');
-                textLg[index].classList.add('text-slate-600');
-                textLg[index].classList.remove('text-white');
-                loveLg[index].classList.add('fa-regular', 'text-slate-600');
-                loveLg[index].classList.remove('fa-solid', 'text-white');
-            }
-        })
-    })
-})
+Array.from(btnFavLg).forEach((button, index) => {
+    const cardId = button.closest('.btn-fav-lg').dataset.id; 
+    handleFavClick(button, loveLg[index], checkLg[index], cardId);
+});
 
+
+for (let i = 0; i < btnFav.length; i++) {
+    const cardId = btnFav[i].closest('.card').dataset.id;
+    const isFavorited = localStorage.getItem(`isFavorited_${cardId}`);
+    if (isFavorited === "true") {
+        check[i].checked = true;
+    }
+
+    if (check[i].checked) {
+        love[i].classList.add('fa-solid', 'text-red-500');
+        love[i].classList.remove('fa-regular', 'text-slate-600');
+    } else {
+        love[i].classList.remove('fa-solid', 'text-red-500');
+    }
+}
+for (let i = 0; i < btnFavLg.length; i++) {
+    const cardId = btnFavLg[i].closest('.btn-fav-lg').dataset.id;
+    const isFavorited = localStorage.getItem(`isFavorited_${cardId}`);
+    if (isFavorited === "true") {
+        checkLg[i].checked = true;
+    }
+
+    if (checkLg[i].checked) {
+        loveLg[i].classList.add('fa-solid', 'text-red-500');
+        loveLg[i].classList.remove('fa-regular', 'text-slate-600');
+    } else {
+        loveLg[i].classList.remove('fa-solid', 'text-red-500');
+    }
+}
 
 window.addEventListener('scroll', function () {
     const scrollPosition = this.scrollY;
