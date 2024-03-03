@@ -5,45 +5,53 @@ const text = document.getElementsByClassName('navbar');
 const language = document.getElementById('language');
 const humberger = document.getElementById('humberger');
 const homeHeight = nav.clientHeight;
-const btnFav = document.getElementById('btn-fav');
-const check =  document.getElementById('check');
-const love = document.getElementById('love');
 
-const btnFav2 = document.getElementById('btn-fav-2');
-const check2 =  document.getElementById('check-2');
-const love2 = document.getElementById('love-2');
+const btnFav = document.getElementsByClassName('btn-fav');
+const love = document.getElementsByClassName('love');
+const check = document.getElementsByClassName('check');
 
-const btnFav3 = document.getElementById('btn-fav-3');
-const check3 =  document.getElementById('check-3');
-const love3 = document.getElementById('love-3');
+const btnFavLg = document.getElementsByClassName('btn-fav-lg');
+const loveLg = document.getElementsByClassName('love-lg');
+const textLg = document.getElementsByClassName('btn-text');
+const checkLg = document.getElementsByClassName('check-lg');
 
-btnFav.addEventListener('click', function () {
-    if(check.checked == true){
-        love.classList.add('fa-solid', 'text-red-500');
-        love.classList.remove('fa-regular', 'text-slate-600');
-    } else {
-        love.classList.add('fa-regular', 'text-slate-600');
-        love.classList.remove('fa-solid', 'text-red-500');
-    }
+
+Array.from(btnFav).forEach(button => {
+    button.addEventListener('click', function () {
+        Array.from(check).forEach((element, index) => {
+            if(element.checked) {
+                love[index].classList.add('fa-solid', 'text-red-700');
+                love[index].classList.remove('fa-regular', 'text-slate-600');
+            } else {
+                love[index].classList.add('fa-regular', 'text-slate-600');
+                love[index].classList.remove('fa-solid', 'text-red-700');
+            }
+        });
+    });
+});
+
+Array.from(btnFavLg).forEach(button => {
+    button.addEventListener('click', function () {
+        Array.from(checkLg).forEach((element, index) => {
+            if(element.checked) {
+                btnFavLg[index].classList.add('bg-red-700');
+                btnFavLg[index].classList.remove('bg-slate-300');
+                textLg[index].classList.add('text-white');
+                textLg[index].classList.remove('text-slate-600');
+                loveLg[index].classList.add('fa-solid', 'text-white');
+                loveLg[index].classList.remove('fa-regular', 'text-slate-600');
+            } else {
+                btnFavLg[index].classList.add('bg-slate-300');
+                btnFavLg[index].classList.remove('bg-red-700');
+                textLg[index].classList.add('text-slate-600');
+                textLg[index].classList.remove('text-white');
+                loveLg[index].classList.add('fa-regular', 'text-slate-600');
+                loveLg[index].classList.remove('fa-solid', 'text-white');
+            }
+        })
+    })
 })
-btnFav2.addEventListener('click', function () {
-    if(check2.checked == true){
-        love2.classList.add('fa-solid', 'text-red-500');
-        love2.classList.remove('fa-regular', 'text-slate-600');
-    } else {
-        love2.classList.add('fa-regular', 'text-slate-600');
-        love2.classList.remove('fa-solid', 'text-red-500');
-    }
-})
-btnFav3.addEventListener('click', function () {
-    if(check3.checked == true){
-        love3.classList.add('fa-solid', 'text-red-500');
-        love3.classList.remove('fa-regular', 'text-slate-600');
-    } else {
-        love3.classList.add('fa-regular', 'text-slate-600');
-        love3.classList.remove('fa-solid', 'text-red-500');
-    }
-})
+
 
 window.addEventListener('scroll', function () {
     const scrollPosition = this.scrollY;
