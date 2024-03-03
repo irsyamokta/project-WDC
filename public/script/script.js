@@ -10,6 +10,11 @@ const btnFav = document.getElementsByClassName('btn-fav');
 const love = document.getElementsByClassName('love');
 const check = document.getElementsByClassName('check');
 
+const btnFavLg = document.getElementsByClassName('btn-fav-lg');
+const loveLg = document.getElementsByClassName('love-lg');
+const textLg = document.getElementsByClassName('btn-text');
+const checkLg = document.getElementsByClassName('check-lg');
+
 
 Array.from(btnFav).forEach(button => {
     button.addEventListener('click', function () {
@@ -24,6 +29,26 @@ Array.from(btnFav).forEach(button => {
         });
     });
 });
+
+Array.from(btnFavLg).forEach(button => {
+    button.addEventListener('click', function () {
+        Array.from(checkLg).forEach((element, index) => {
+            if(element.checked) {
+                btnFavLg[index].classList.add('bg-red-500');
+                textLg[index].classList.add('text-white');
+                textLg[index].classList.remove('text-slate-600');
+                loveLg[index].classList.add('fa-solid', 'text-white');
+                loveLg[index].classList.remove('fa-regular', 'text-slate-600');
+            } else {
+                btnFavLg[index].classList.remove('bg-red-500');
+                textLg[index].classList.add('text-slate-600');
+                textLg[index].classList.remove('text-white');
+                loveLg[index].classList.add('fa-regular', 'text-slate-600');
+                loveLg[index].classList.remove('fa-solid', 'text-white');
+            }
+        })
+    })
+})
 
 
 window.addEventListener('scroll', function () {
